@@ -4,15 +4,15 @@ from collections import defaultdict
 
 class Database:
     def __init__(self):
-        self.species = defaultdict(Bird)
+        self.dictionary = defaultdict(Bird)
 
     def __str__(self):
-        return str(self.species)
+        return str(self.dictionary)
 
     def add(self, species, timestamp, confidence):
-        self.species[species].timestamps.append(timestamp)
-        self.species[species].confidences.append(confidence)
-        self.species[species].occurrances += 1
+        self.dictionary[species].timestamps.append(timestamp)
+        self.dictionary[species].confidences.append(confidence)
+        self.dictionary[species].occurrances += 1
 
 
 class Bird:
@@ -31,8 +31,9 @@ def main():
         reader = csv.reader(file)
         next(reader)
         for row in reader:
-            database.add(row[8], (row[3], row[4]), row[9])
-    print(database)
+            database.add(row[8], (float(row[3]), float(row[4])), float(row[9]))
+    for species, bird in database.dictionary.items():
+        print(species, bird.average_confidence())
 
 
 if __name__ == "__main__":
