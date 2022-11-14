@@ -1,0 +1,4 @@
+Selection,View,Channel,Begin Time(s),End Time(s),Low Frequency (Hz),High Frequency(Hz),Species Code,Common Name,Confidence
+1,Spectrogram,X,Y,Z,A,B,blujay,Blue Jay,0.9795
+2,Spectrogram,X,Y,Z,A,B,blujay,Blue Jay,0.9801
+3,Spectrogram,X,Y,Z,A,B,savwar,Savi's Warbler,0.1901
