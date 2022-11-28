@@ -1,6 +1,8 @@
 import csv
 from collections import defaultdict
 import matplotlib.pyplot as plt
+import os
+import time
 
 
 class Database:
@@ -19,7 +21,7 @@ class Database:
 class Bird:
     def __init__(self):
         self.occurrances = 0
-        self.timestamps = []
+        self.timestamps = []  # list of tuples with month, day, hour
         self.confidences = []
 
     def average_confidence(self):
@@ -28,15 +30,20 @@ class Bird:
 
 def main():
     database = Database()
+    date = os.path.getmtime("BirdNET_Output.csv")
     with open("BirdNET_Output.csv", "r") as file:
         reader = csv.reader(file)
         next(reader)
         for row in reader:
-            database.add(row[8], (float(row[3]), float(row[4])), float(row[9]))
+            database.add(
+                row[8],
+                (time.localtime(date)[1], time.localtime(date)[2], time.localtime(date)[3]),
+                float(row[9]),
+            )
     for species, bird in database.dictionary.items():
-        print(species, bird.average_confidence())
-    plot_occurrances(database)
-    plot_average_confidences(database)
+        print(species, bird.average_confidence(), bird.timestamps)
+    # plot_occurrances(database)
+    # plot_average_confidences(database)
 
 
 def plot_occurrances(database):
